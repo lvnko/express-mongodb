@@ -1,12 +1,13 @@
 # Week #009
 ## 專案啟動步驟
-1. 安裝依賴模組
+1. 安裝與設定 mongodb 開發環境，執行步驟可以參考 [``setup.md``](./setup.md)
+2. 安裝專案依賴模組
 ```node
 npm install
 ```
-2. 啟動環境
+3. 啟動環境
 ```node
-npm run dev
+npm run start
 ```  
 ### 開發環境依賴
 - Mongodb v8.0
