@@ -73,7 +73,7 @@ db.then(async (mongo)=>{
      */ 
     const School = mongo.model(
         'School',
-        new Schema({
+        new Schema({ // 類似 JS 裡的 Interface，主要在定義文件中不同 field 的 類別、限制與規則
             name: Schema.Types.String,
             city: Schema.Types.String,
             score: {
