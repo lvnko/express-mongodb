@@ -92,8 +92,7 @@ const User = mongoose.model('User', userSchema);
 - Schemas 定義數據的外觀。
 - Models 使用 Schemas 與數據庫交互。  
 
-在實踐中，您定義一個 Schema，將其編譯成一個 Model，然後使用 Model 對 MongoDB 數據庫執行操作。
-### mongoose 的語法
+### CRUD 語法
 mongoose 的 CRUD 使用語法與 MongoDB Shell 非常相似，其使用方法可參考另一專案中的 [筆記](../../../graphql-server/blob/main/notes/mongodb-shell.md)。
 ***
 ## 其他有用資源

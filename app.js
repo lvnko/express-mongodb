@@ -69,7 +69,8 @@ const updateAsync = async ({ collectionModel, filter, update, multiple = false }
 db.then(async (mongo)=>{
     /**
      * 創建 Model
-     * - Model 可以輔助 Mogoose 去認識 Collections
+     * -Model 可以輔助 Mogoose 去認識 Collections
+     *  在以下實踐中，先定義一個 Schema，將其編譯成一個 Model，然後使用 Model 對 MongoDB 數據庫執行操作。
      */ 
     const School = mongo.model(
         'School',
