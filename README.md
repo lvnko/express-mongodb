@@ -14,7 +14,7 @@ npm run start
 - Node.js v18.20.2
 
 ## moogooose 語法
-moogoose 的使用語法與 MongoDB Shell 非常相似，其使用方法可參考另一專案中的 [筆記](../main/notes/mongodb-shell.md)。
+moogoose 的使用語法與 MongoDB Shell 非常相似，其使用方法可參考另一專案中的 [筆記](../../../graphql-server/blobmain/notes/mongodb-shell.md)。
 
 ## 其他有用資源
 - MongoDB [[官網](https://www.mongodb.com/)]
