@@ -13,7 +13,7 @@ npm run start
 - Mongodb v8.0
 - Node.js v18.20.2
 ***
-## mongooose 的使用觀念
+## mongoose 的使用觀念
 在 Mongoose 中，Schemas 和 Models 在定義和使用 MongoDB 文件方面扮演著截然不同但互補的角色。  
 ### Schemas（模式）
 Schema 是 MongoDB 文件的藍圖。它定義了結構、默認值、數據類型、驗證規則等等，但它不直接與數據庫交互。  
@@ -93,7 +93,7 @@ const User = mongoose.model('User', userSchema);
 - Models 使用 Schemas 與數據庫交互。  
 
 在實踐中，您定義一個 Schema，將其編譯成一個 Model，然後使用 Model 對 MongoDB 數據庫執行操作。
-### mongooose 的語法
+### mongoose 的語法
 mongoose 的 CRUD 使用語法與 MongoDB Shell 非常相似，其使用方法可參考另一專案中的 [筆記](../../../graphql-server/blob/main/notes/mongodb-shell.md)。
 ***
 ## 其他有用資源
