@@ -1,150 +1,37 @@
+const express = require("express");
 const mongoose = require("mongoose");
 const { Schema, Types } = mongoose;
+const app = express();
+const port = 8081;
+const portMongodbDefault = 27017;
 
-const db = mongoose.connect('mongodb://localhost:27017/test', {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true
+mongoose.connect(`mongodb://localhost:${portMongodbDefault}/test`, {
+    useNewUrlParser: true
 });
 
-const findAsync = async ({ collectionModel, filter = {} }) => {
-    try {
-        const result = await collectionModel.find(filter);
-        return {
-            statusText: 'ok',
-            payload: result
-        };
-    } catch (err) {
-        return {
-            statusText: 'fail',
-            message: err.message
-        };
+const SchoolSchema = new mongoose.Schema({
+    name: Schema.Types.String,
+    city: Schema.Types.String,
+    score: {
+        type: Schema.Types.Number,
+        min: 0, max: 100,
+        required: true
+    },
+    countryRegion: Schema.Types.String,
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
-}
+});
 
-const insertAsync = async ({ collectionModel, data }) => {
-    try {
-        const result = await collectionModel.insertMany(data);
-        return {
-            statusText: 'ok',
-            payload: result
-        };
-    } catch (err) {
-        return {
-            statusText: 'fail',
-            message: err.message
-        };
-    }
-}
+const School = mongoose.model('school', SchoolSchema, 'school');
 
-const deleteAsync = async ({ collectionModel, conditions, multiple = false }) => {
-    try {
-        const result = multiple ? await collectionModel.deleteMany(conditions) : await collectionModel.deleteOne(conditions);
-        return {
-            statusText: 'ok',
-            payload: result
-        };
-    } catch (err) {
-        return {
-            statusText: 'fail',
-            message: err.message
-        };
-    }
-}
+app.get('/', async (req, res)=>{
+    const schools = await School.find({});
+    console.log(schools);
+    res.status(200).send(schools);
+});
 
-const updateAsync = async ({ collectionModel, filter, update, multiple = false }) => {
-    try {
-        const result = multiple ?  await collectionModel.updateMany(filter, update) : await collectionModel.updateOne(filter, update);
-        return {
-            statusText: 'ok',
-            payload: result
-        };
-    } catch (err) {
-        return {
-            statusText: 'fail',
-            message: err.message
-        };
-    }
-}
-
-db.then(async (mongo)=>{
-    /**
-     * 創建 Model
-     * -Model 可以輔助 Mogoose 去認識 Collections
-     *  在以下實踐中，先定義一個 Schema，將其編譯成一個 Model，然後使用 Model 對 MongoDB 數據庫執行操作。
-     */ 
-    const School = mongo.model(
-        'School',
-        new Schema({ // 類似 JS 裡的 Interface，主要在定義文件中不同 field 的 類別、限制與規則
-            name: Schema.Types.String,
-            city: Schema.Types.String,
-            score: {
-                type: Schema.Types.Number,
-                min: 0, max: 100,
-                required: true
-            },
-            countryRegion: Schema.Types.String,
-            createdAt: {
-                type: Date,
-                default: Date.now
-            }
-        }),
-        'school'
-    );
-    console.log('Model => ', School);
-
-    const findResult = await findAsync({
-        collectionModel: School,
-        filter: {
-            // name: 'Columbia University',
-            countryRegion: {
-                $in: ['United States', 'U.S.A.']
-            },
-            // city: 'New York City'
-        },
-        
-    });
-
-    console.log('findResult => ', findResult);
-
-    if (findResult.payload?.length <= 0) {
-        // const insertResult = await insertAsync({
-        //     collectionModel: School,
-        //     data: [
-        //         {
-        //             name: 'Columbia University',
-        //             city: 'New York City',
-        //             score: 86.4,
-        //             countryRegion: 'United States'
-        //         }
-        //     ]
-        // });
-        // console.log('insertResult => ', insertResult);
-    }
-
-    if (findResult.payload?.length > 0) {
-        // // Sample to delete a record found.
-        // console.log('record to be deleted (_id): ', findResult.payload[0]._id);
-        // const deleteResult = await deleteAsync({
-        //     collectionModel: School,
-        //     filter: {
-        //         _id: findResult.payload[0]._id
-        //     }
-        // });
-        // console.log('deleteResult => ', deleteResult);
-        
-        // // Sample to update a record found.
-        // console.log('records to be updated : ', findResult);
-        // const updateResult = await updateAsync({
-        //     collectionModel: School,
-        //     filter: {
-        //         countryRegion: "United States"
-        //     },
-        //     update: {
-        //         countryRegion: "U.S.A."
-        //     },
-        //     // multiple: true
-        // });
-        // console.log('updateResult => ', updateResult);
-    }
-    
+app.listen(port, ()=>{
+    console.log(`Server responsed on port ${port}!!!`);
 });
