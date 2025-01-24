@@ -1,4 +1,3 @@
-// 第十週課堂學習練習
 const express = require("express");
 const mongoose = require("mongoose");
 const { Schema, Types } = mongoose;
